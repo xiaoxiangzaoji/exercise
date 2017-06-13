@@ -1,11 +1,12 @@
 <?php 
 namespace Admin\Model;
 use Think\Model;
-//鏃犵嚎鍒嗙被
+//商品分类
 class GoodLevelinfoModel extends Model {
 	public function allCategory($field='*'){
 		return $this->field($field)->select();
 	}
+	//无线分类
 	public function tree($data,$pid=0,$level=1){
 	    static $treeArr = array();
 	    foreach ($data as $v)
@@ -19,5 +20,16 @@ class GoodLevelinfoModel extends Model {
 	    }
 	    return $treeArr;
 	}
+	//根据父类删除子类
+	public function drop_nodes( $nid ) {
+        $childs = $this->where( array( 'parent_id' => $nid ) )->select();
+        $result = $this->where("id = %d", $nid)->delete();
+        if ( is_array($childs) && !empty($childs) ) {
+              foreach ($childs as $key => $child) {
+                $this->drop_nodes( $child['id'] );
+            }
+        }
+        return $result;
+    }
 }
  ?>
