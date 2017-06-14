@@ -4,7 +4,7 @@ use Think\Model;
 //商品分类
 class GoodLevelinfoModel extends Model {
 	public function allCategory($field='*'){
-		return $this->field($field)->select();
+		return $this->field($field)->where('status = 1')->select();
 	}
 	//无线分类
 	public function tree($data,$pid=0,$level=1){

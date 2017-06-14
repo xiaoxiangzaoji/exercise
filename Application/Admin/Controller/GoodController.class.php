@@ -13,8 +13,8 @@ Class GoodController extends \Admin\Controller\BaseController{
 		//无线分类
 		$list=$cat->tree($result);
 		$this->assign('result',$list);
-		$row = $cat->page($P.',5')->allCategory($field );//分页
-		$count = M('Good_levelinfo')->where('status = 1')->count();// 查询满足要求的总记录数
+		$row = $cat->page($P.',5')->field($field )->select();//分页
+		$count = M('Good_levelinfo')->count();// 查询满足要求的总记录数
 		$Page = new \Think\Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
 
 		$Page->lastSuffix = false;//最后一页不显示为总页数
@@ -41,17 +41,20 @@ Class GoodController extends \Admin\Controller\BaseController{
 		}
 	}
 	public function del_goodlevel(){
-		// $id = I('get.id');
-		// $result = M('Good_levelinfo')->where("id = $id")->delete();
-		// if ($result) {
-		// 	echo 2;
-		// }else{
-		// 	echo 1;
-		// }
-
 		$id = I('get.id');
 		$good = D('Good_levelinfo');
 		$list = $good->drop_nodes($id);
+		if ($list) {
+			echo 2;
+		}else{
+			echo 1;
+		}
+	}
+	public function update_level(){
+		$data['level_name'] = I('post.level_name');
+		$data['status'] = I('post.status');
+		$id= I('post.id');
+		$list = M('Good_levelinfo')->where("id =$id")->save($data);
 		if ($list) {
 			echo 2;
 		}else{
