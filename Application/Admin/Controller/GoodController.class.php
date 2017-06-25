@@ -61,6 +61,15 @@ Class GoodController extends \Admin\Controller\BaseController{
 			echo 1;
 		}
 	}
+	public function add_goods(){
+        $cat = D('Good_levelinfo');
+        $field = array('id','level_name','parent_id','status');
+        $result = $cat->allCategory($field );
+        //无线分类
+        $list=$cat->tree($result);
+        $this->assign('result',$list);
+	    $this->display();
+    }
 }
 
 

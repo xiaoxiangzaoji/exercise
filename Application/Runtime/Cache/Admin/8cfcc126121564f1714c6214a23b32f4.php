@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="/Public/Admin/bootstrap/css/bootstrap.min.css" />
 	<script src="/Public/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" type="text/css"  href="/Public/Admin/css/style.css"/>
-	<script type="text/javascript" src="/Public/Admin/js/submitlevel.js"></script>
 
 </head>
 <body>

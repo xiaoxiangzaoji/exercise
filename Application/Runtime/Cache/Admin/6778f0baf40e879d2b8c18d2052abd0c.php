@@ -41,9 +41,9 @@ $(document).ready(function(){
  <dd>
  <ul>
   <li><a href="#">商品列表</a></li>
-  <li><a href="#">添加新商品</a></li>
+  <li><a href="<?php echo U('Admin/Good/add_goods');?>" target="main">添加新商品</a></li>
   <li><a href="<?php echo U('Admin/Good/good_level');?>" target="main">商品分类</a></li>
-  <li><a href="#">用户评论</a></li>
+  <li><a href="<?php echo U('Admin/Customer/evaluate');?>" target="main">用户评论</a></li>
   <li><a href="#">商品回收站</a></li>
   <li><a href="#">库存管理</a></li>
  </ul>
