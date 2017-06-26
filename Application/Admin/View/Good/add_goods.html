@@ -5,10 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Document</title>
     <script src="/Public/jquery-3.2.1.min.js"></script>
-    <script src="/Public/Admin/js/uploadpicture/fileinput.js"></script>
-    <link rel="stylesheet" href="/Public/Admin/js/uploadpicture/fileinput.css" />
+    <script src="http://www.lanrenzhijia.com/ajaxjs/jquery.min.js"></script>
+    <script src="/Public/Admin/core/zyFile.js"></script>
+    <script src="/Public/Admin/control/js/zyUpload.js"></script>
+    <script src="/Public/Admin/core/jq22.js"></script>
+    <link rel="stylesheet" href="/Public/Admin/control/css/zyUpload.css" type="text/css">
     <link rel="stylesheet" href="/Public/Admin/bootstrap/css/bootstrap.min.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         #div1{width:100%;height:70%;background:rgba(255, 0, 165, 0.05);}
         #input1{width: 500px;height: 131px;}
@@ -31,23 +33,11 @@
             }
             $('#goodsname').css("background-color", "#FFFFFF");
         })
-
-        $("#file-1").fileinput({
-            uploadUrl: '#', // you must set a valid URL here else you will get an error
-            allowedFileExtensions: ['jpg', 'png', 'gif'],
-            overwriteInitial: false,
-            maxFileSize: 1000,
-            maxFilesNum: 10,
-            //allowedFileTypes: ['image', 'video', 'flash'],
-            slugCallback: function (filename) {
-                return filename.replace('(', '_').replace(']', '_');
-            }
-        });
     });
 </script>
 <body>
 <div id="div1">
-    <form method="post" class="form-horizontal" enctype="multipart/form-data">
+    <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:U('Admin/Good/add_goods')}">
         <div class="control-group">
             <label class="control-label">商品名称</label>
             <div class="controls">
@@ -89,16 +79,13 @@
             <label class="control-label">商品图片</label>
             <div class="controls">
 
-                <div class="form-group">
-                    <input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
-                </div>
-
+                <div id="demo" class="demo" style="margin:0 0;"></div>   
 
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
-                <input type="submit" value="submit">
+                <input type="submit" value="提交" style="width:60px;height:30px;background:rgba(103, 175, 109, 0);">
             </div>
         </div>
 

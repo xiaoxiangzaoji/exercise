@@ -61,14 +61,19 @@ Class GoodController extends \Admin\Controller\BaseController{
 			echo 1;
 		}
 	}
+	//添加商品页面
 	public function add_goods(){
-        $cat = D('Good_levelinfo');
-        $field = array('id','level_name','parent_id','status');
-        $result = $cat->allCategory($field );
-        //无线分类
-        $list=$cat->tree($result);
-        $this->assign('result',$list);
-	    $this->display();
+		if (IS_POST) {
+			var_dump($_post);
+		}else{
+	        $cat = D('Good_levelinfo');
+	        $field = array('id','level_name','parent_id','status');
+	        $result = $cat->allCategory($field );
+	        //无线分类
+	        $list=$cat->tree($result);
+	        $this->assign('result',$list);
+		    $this->display();	    			
+		}
     }
 }
 
