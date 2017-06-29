@@ -10,7 +10,15 @@ class LoginController extends Controller{
             $result = M('Admin')->where($data)->find();
             if (trim(md5($password)) == trim($result['password'])) {
                 session('name',$data['username']);
-                session('id',$result['id']);
+                //权限存入session
+                $datas['role_id'] = $result['role_id'];
+                $list = M('permission_list')->join('LEFT JOIN __ROLE_PERMISSION__ ON __ROLE_PERMISSION__.permission = __PERMISSION_LIST__.id')->where($datas)->field('permissions')->select();
+                foreach ($list as $k => $v) {
+                    $per[] = $v['permissions'];
+                }
+                //var_dump($per);die();
+                session('per',$per);
+                session('role_id',$result['role_id']);
 
                 $last['last_login_time'] = date('Y-m-d H:i:s',time());
                 $last['last_login_ip'] = $_SERVER['REMOTE_ADDR'] = ':: 1'?'127.0.0.1':$_SERVER['REMOTE_ADDR'];

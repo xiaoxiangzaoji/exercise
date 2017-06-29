@@ -4,16 +4,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Document</title>
-    <script src="/Public/jquery-3.2.1.min.js"></script>
-    <script src="http://www.lanrenzhijia.com/ajaxjs/jquery.min.js"></script>
-    <script src="/Public/Admin/core/zyFile.js"></script>
-    <script src="/Public/Admin/control/js/zyUpload.js"></script>
-    <script src="/Public/Admin/core/jq22.js"></script>
-    <link rel="stylesheet" href="/Public/Admin/control/css/zyUpload.css" type="text/css">
+    <script src="/Public/jquery-3.2.1.min.js"></script>  
     <link rel="stylesheet" href="/Public/Admin/bootstrap/css/bootstrap.min.css" />
     <style type="text/css">
         #div1{width:100%;height:70%;background:rgba(255, 0, 165, 0.05);}
-        #input1{width: 500px;height: 131px;}
     </style>
 </head>
 <script type="text/javascript">
@@ -22,6 +16,10 @@
         $('#goodsname').focus(function () {
             $('#sign').css("display", 'none');
             $('#goodsname').css("background-color", "#FFFFCC");
+        })
+        $('#price').focus(function () {
+            $('#signs').css("display", 'none');
+            $('#price').css("background-color", "#FFFFCC");
         })
         $('#goodsname').blur(function () {
             var gn = $('#goodsname').val();
@@ -33,11 +31,40 @@
             }
             $('#goodsname').css("background-color", "#FFFFFF");
         })
+        $('#price').blur(function () {
+            var gns = $('#price').val();
+            if (!gns) {
+                $('#signs').text('不能为空');
+                $('#signs').css("color", 'red');
+                $('#signs').css("border", '0');
+                $('#signs').css("display", 'inline');
+                $('#price').css("background-color", "#FFFFFF");
+                return;
+            }
+            // alert(888);
+            if(isNaN(gns)){
+                $('#signs').text('价格必须是数字');
+                $('#signs').css("color", 'red');
+                $('#signs').css("border", '0');
+                $('#signs').css("display", 'inline');
+                $('#price').css("background-color", "#FFFFFF");
+            }    
+        })
+        $('#submit').click(function(){
+            var name = $("#goodsname").val();
+            var price = $("#price").val();
+            var goodsinfo = $("#goodsinfo").val();
+            if(!name||!price||!goodsinfo){
+                alert("请填写完整");
+                window.location.reload();
+                return;
+            };
+        })
     });
 </script>
 <body>
 <div id="div1">
-    <form method="post" class="form-horizontal" enctype="multipart/form-data" action="<?php echo U('Admin/Good/add_goods');?>">
+    <form method="post" class="form-horizontal" enctype="multipart/form-data" >
         <div class="control-group">
             <label class="control-label">商品名称</label>
             <div class="controls">
@@ -69,9 +96,16 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label">商品价格</label>
+            <div class="controls">
+                <input type="text" name="price" id="price"><div id="signs" style="display:none;"></div>
+               
+            </div>
+        </div>
+        <div class="control-group">
             <label class="control-label">商品详情</label>
             <div class="controls">
-                <textarea rows="3" style="width:400px;height: 200px;" name="goodsinfo"></textarea>
+                <textarea rows="3" style="width:400px;height: 200px;" name="goodsinfo" id="goodsinfo"></textarea>
             </div>
         </div>
 
@@ -79,13 +113,15 @@
             <label class="control-label">商品图片</label>
             <div class="controls">
 
-                <div id="demo" class="demo" style="margin:0 0;"></div>   
+               <input type="file"  name="goods[]" style="width:72px;"/>
+               <input type="file"  name="goods[]" style="width:72px;"/>
+               <input type="file"  name="goods[]" style="width:72px;"/>
 
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
-                <input type="submit" value="提交" style="width:60px;height:30px;background:rgba(103, 175, 109, 0);">
+                <input type="submit" value="提交" id="submit" style="width:60px;height:30px;background:rgba(103, 175, 109, 0);">
             </div>
         </div>
 

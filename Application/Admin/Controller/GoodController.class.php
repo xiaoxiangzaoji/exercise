@@ -64,7 +64,39 @@ Class GoodController extends \Admin\Controller\BaseController{
 	//添加商品页面
 	public function add_goods(){
 		if (IS_POST) {
-			var_dump($_post);
+			//var_dump($_POST);
+			$data['goodname']= $_POST['goodname']?$_POST['goodname']:false;
+			$data['level']= $_POST['level']?$_POST['level']:false;
+			$data['ison']= $_POST['ison']?$_POST['ison']:false;
+			$data['price']= $_POST['price']?$_POST['price']:false;
+			$data['goodsinfo']= $_POST['goodsinfo']?$_POST['goodsinfo']:false;
+			//echo "<pre>";print_r($_FILES);echo "<pre>";
+			//die();
+
+			$upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize  = 3145728 ;// 设置附件上传大小
+            $upload->autoSub =  true; //自动子目录保存文件
+            $upload->allowExts  = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+            $upload->rootPath  =  './Uploads/goods/'; // 设置附件上传根目录
+            //$upload->savePath = 'goods';// 设置附件上传目录
+            //$upload->saveName = time().'_'.mt_rand();
+            $upload->replace = true; //存在同名是否覆盖
+            //var_dump($_FILES);
+            $info = $upload->upload();
+            if(!$info) {// 上传错误提示错误信息
+		        $this->error($upload->getError());
+		    }else{// 上传成功
+		    	//var_dump($info[0]);var_dump($info[1]);var_dump($info[2]);
+		    	$pho[] = $info[0]['savepath'].$info[0]['savename'];
+		    	$pho[] = $info[1]['savepath'].$info[1]['savename'];
+		    	$pho[] = $info[2]['savepath'].$info[2]['savename'];
+		    	$data['savepath'] = implode("|",$pho);
+		    	// var_dump($data['savepath']);
+		    	// die();
+		    	$goods = M('goodinfo');
+		    	$result = $goods->add($data);
+		        $this->success('上传成功！');
+		    }
 		}else{
 	        $cat = D('Good_levelinfo');
 	        $field = array('id','level_name','parent_id','status');
@@ -75,6 +107,10 @@ Class GoodController extends \Admin\Controller\BaseController{
 		    $this->display();	    			
 		}
     }
+    public function add_goodsphoto(){
+    	var_dump($_file);die();
+    	
+	}
 }
 
 
