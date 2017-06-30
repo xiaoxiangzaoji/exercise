@@ -12,10 +12,14 @@ class LoginController extends Controller{
                 session('name',$data['username']);
                 //权限存入session
                 $datas['role_id'] = $result['role_id'];
-                $list = M('permission_list')->join('LEFT JOIN __ROLE_PERMISSION__ ON __ROLE_PERMISSION__.permission = __PERMISSION_LIST__.id')->where($datas)->field('permissions')->select();
-                foreach ($list as $k => $v) {
-                    $per[] = $v['permissions'];
+                if ($result['role_id'] == 1) {//判断是不是超级管理员
+                    $list= M('permission_list')->field('permissions')->select();
+                }else{
+                    $list = M('permission_list')->join('LEFT JOIN __ROLE_PERMISSION__ ON __ROLE_PERMISSION__.permission = __PERMISSION_LIST__.id')->where($datas)->field('permissions')->select();                   
                 }
+                foreach ($list as $k => $v) {
+                        $per[] = $v['permissions'];
+                    }
                 //var_dump($per);die();
                 session('per',$per);
                 session('role_id',$result['role_id']);

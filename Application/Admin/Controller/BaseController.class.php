@@ -18,7 +18,7 @@ class BaseController extends Controller
         //var_dump($value);die();
         if(!in_array($zhi,$value)){
             if(!in_array($final,$value)) {
-                $this->success('无权限',U('Admin/Index/main'),3);
+                $this->success('对不起您没有该权限',U('Admin/Index/main'),3);
                 exit();
             }   
         }
