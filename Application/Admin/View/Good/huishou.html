@@ -1,0 +1,23 @@
+<html>
+<head>
+  <title>获取地图</title>
+  <script src="/Public/jquery-3.2.1.min.js"></script>  
+</head>
+<body>
+  <table>
+    <tr>
+      <th>id</th><th>名字</th><th>地址</th><th>信息</th><th>操作</th>
+    </tr>
+    <?php foreach ($result as $k => $v): ?>
+      <tr>
+      <td>{$v.id}</td><td>{$v.companyname}</td><td>{$v.address}</td><td>{$v.companyinfo}</td><td><button onclick="getmaps(<?php echo $v['address']; ?>);" type="button">查看地图</button></td>
+    </tr>
+    <?php endforeach ?>
+  </table>
+<script type="text/javascript">
+function getmaps(address){
+  alert(address);
+}
+</script>
+</body>
+</html>

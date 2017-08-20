@@ -111,6 +111,46 @@ Class GoodController extends \Admin\Controller\BaseController{
     	var_dump($_file);die();
     	
 	}
+	public function goodslist(){
+		if (IS_POST) {
+			if (isset($_POST['pro_id'])) {
+	        	$data['provinceid'] = $_POST['pro_id'];
+	        	$city = M('cities')->where($data)->select();
+	        	$opt = '<option>--请选择市区--</option>';
+				foreach($city as $key=>$val){
+				    $opt .= "<option value='{$val['cityid']}'>{$val['city']}</option>";
+				}
+				echo json_encode($opt);
+			}else{
+				if (isset($_POST['city_id'])) {
+		        	$data['cityid'] = $_POST['city_id'];
+		        	$area = M('areas')->where($data)->select();
+		        	$opt = '<option>--请选择区--</option>';
+					foreach($area as $key=>$val){
+					    $opt .= "<option value='{$val['areaid']}'>{$val['area']}</option>";
+					}
+					echo json_encode($opt);
+				}
+			}
+    	} else {
+	        $region = M('provinces')->select();
+	        $this->assign('region',$region);
+	        $this->display();
+	    }
+	}
+	public function huishou(){
+		$company = M('company');
+		$result = $company->select();
+		$this->assign('result',$result);
+		$this->display();
+	}
+	public function jinweidu(){
+		if (!empty($_GET['add'])) {
+			echo 2;
+		}else{
+			echo 1;
+		}
+	}
 }
 
 

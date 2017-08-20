@@ -4,7 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Document</title>
-    <script src="/Public/jquery-3.2.1.min.js"></script>  
+    <script src="/Public/jquery-3.2.1.min.js"></script>
+    <script src="/Public/utf8-php/ueditor.config.js"></script>  
+    <script src="/Public/utf8-php/ueditor.all.js"></script>  
     <link rel="stylesheet" href="/Public/Admin/bootstrap/css/bootstrap.min.css" />
     <style type="text/css">
         #div1{width:100%;height:70%;background:rgba(255, 0, 165, 0.05);}
@@ -105,7 +107,10 @@
         <div class="control-group">
             <label class="control-label">商品详情</label>
             <div class="controls">
-                <textarea rows="3" style="width:400px;height: 200px;" name="goodsinfo" id="goodsinfo"></textarea>
+                <script id="container" name="content" type="text/plain" style="width:800px;">
+                
+                </script>
+                <!-- <textarea rows="3" style="width:400px;height: 200px;" name="goodsinfo" id="goodsinfo"></textarea> -->
             </div>
         </div>
 
@@ -120,12 +125,38 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label">商品详情</label>
             <div class="controls">
-                <input type="submit" value="提交" id="submit" style="width:60px;height:30px;background:rgba(103, 175, 109, 0);">
+                <script id="containers" name="contents" type="text/plain" style="width:800px;">
+                
+                </script>
+                <!-- <textarea rows="3" style="width:400px;height: 200px;" name="goodsinfo" id="goodsinfo"></textarea> -->
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" value="提交" id="submit" onclick="return check();" style="width:60px;height:30px;background:rgba(103, 175, 109, 0);">
             </div>
         </div>
 
     </form>
+<script type="text/javascript">
+function check(){
+//     ue.ready(function() {
+//     var html = ue.getContent();
+// });
+//      ue2.ready(function() {
+//     var htmls = ue2.getContent();
+// });
+    var content = ue.getContent();
+    var contents = ue2.getContent();
+    alert(content);
+    alert(contents);
+}
+    var ue = UE.getEditor('container');
+    var ue2 = UE.getEditor('containers');
+</script>
 </div>
 </body>
 </html>

@@ -39,8 +39,10 @@ class LoginController extends Controller{
 //退出
     public function logout(){
         session_destroy();
-        unset($_SESSION['name']);
-        $this->redirect('login/index');
+        unset($_SESSION);
+        // unset($_SESSION['name']);
+        // $this->redirect('login/index');
+        echo "<script>location.href='index.php?m=Admin&c=Login&a=index';</script>";
     }
 //我的信息
     public function myinfo(){
